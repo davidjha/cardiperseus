@@ -1,3 +1,5 @@
+import csv
+
 import pandas as pd
 import pprint
 from hearts_agents import hearts_agents
@@ -105,6 +107,17 @@ def get_max_score(score):
     return m_score, m_score_index
 
 
+def export():
+    with open('results.csv', 'w') as file:
+        writer = csv.writer(file, lineterminator='\n')
+        writer.writerow(['name', 'games', 'points', 'losses', 'average'])
+
+    with open('results.csv', 'a') as file:
+        writer = csv.writer(file, lineterminator='\n')
+        for data in hearts_agents:
+            writer.writerow([data['name'], data['games'], data['points'], data['losses'], data['average']])
+
+
 if __name__ == "__main__":
     compute_losses()
     agent1 = compute_number_of_games(1)
@@ -117,3 +130,4 @@ if __name__ == "__main__":
     find_average_points(4)
     print(number_of_games())
     pprint.pprint(hearts_agents)
+    export()
