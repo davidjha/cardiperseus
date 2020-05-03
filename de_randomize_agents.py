@@ -3,7 +3,7 @@ import pandas as pd
 import copy
 from perseus import convert_to_int
 
-df = pd.read_csv(r'hearts_test.csv')
+df = pd.read_csv(r'hearts.csv')
 
 
 def de_randomize():
@@ -57,3 +57,8 @@ def write_file(scores, agents):
         writer = csv.writer(file, lineterminator='\n')
         for i, k in enumerate(scores):
             writer.writerow([scores[i], agents[i][0], agents[i][1], agents[i][2], agents[i][3]])
+
+
+if __name__ == "__main__":
+    ordered_game_score, ordered_agents = de_randomize()
+    write_file(ordered_game_score, ordered_agents)
