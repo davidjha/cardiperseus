@@ -2,7 +2,10 @@ import csv
 
 import pandas as pd
 import pprint
+
+import de_randomize_agents as de
 from hearts_agents import hearts_agents
+from multiprocessing import Process
 
 df = pd.read_csv(r'de_randomized_hearts.csv')
 
@@ -119,6 +122,8 @@ def export():
 
 
 if __name__ == "__main__":
+    ordered_score, ordered_agents = de.de_randomize()
+    de.write_file(ordered_score, ordered_agents)
     compute_losses()
     agent1 = compute_number_of_games(1)
     agent2 = compute_number_of_games(2)
