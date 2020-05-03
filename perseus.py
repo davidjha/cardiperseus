@@ -122,8 +122,7 @@ def export():
 
 
 if __name__ == "__main__":
-    ordered_score, ordered_agents = de.de_randomize()
-    de.write_file(ordered_score, ordered_agents)
+
     compute_losses()
     agent1 = compute_number_of_games(1)
     agent2 = compute_number_of_games(2)
