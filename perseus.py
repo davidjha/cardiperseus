@@ -31,10 +31,6 @@ def find_agent(agent_list, index):
             return agent_id
 
 
-def find_average_points():
-    pass
-
-
 def compute_number_of_games(agent_id):
     """
     Computes the number of games an agent participated in.
@@ -61,6 +57,19 @@ def compute_number_of_games(agent_id):
 def number_of_games():
     """ Returns total number of games in the dataframe."""
     return len(df.index)
+
+
+def find_average_points(agent_id):
+    sum_points = 0
+    total = hearts_agents[agent_id - 1]['games']
+    for key, value in df.iterrows():
+        game_score = convert_to_int(value['score'])
+        agent_list = [value['agent1'], value['agent2'], value['agent3'], value['agent4']]
+        for i, points in enumerate(game_score):
+            if find_agent(agent_list, i) == agent_id:
+                sum_points = sum_points + points
+    hearts_agents[agent_id - 1]['points'] = sum_points
+    hearts_agents[agent_id - 1]['average'] = sum_points / total
 
 
 def compute_losses():
@@ -102,5 +111,9 @@ if __name__ == "__main__":
     agent2 = compute_number_of_games(2)
     agent3 = compute_number_of_games(3)
     agent4 = compute_number_of_games(4)
+    find_average_points(1)
+    find_average_points(2)
+    find_average_points(3)
+    find_average_points(4)
     print(number_of_games())
     pprint.pprint(hearts_agents)
