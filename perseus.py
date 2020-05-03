@@ -1,11 +1,8 @@
 import csv
-
 import pandas as pd
 import pprint
-
-import de_randomize_agents as de
 from hearts_agents import hearts_agents
-from multiprocessing import Process
+
 
 df = pd.read_csv(r'de_randomized_hearts.csv')
 
@@ -121,8 +118,29 @@ def export():
             writer.writerow([data['name'], data['games'], data['points'], data['losses'], data['average']])
 
 
-if __name__ == "__main__":
+def get_winner():
+    scores = []
+    contestants = []
+    placement = []
 
+    for agent in hearts_agents:
+        contestants.append(agent['name'])
+        scores.append(agent['average'])
+
+    placement = list(zip(scores, contestants))
+    placement.sort()
+    print('\n')
+    print('\n')
+    print("*----------------------Winners!--------------------------*")
+    for i, contestants in enumerate(placement):
+        if i < 3:
+            print(i + 1, " ", contestants[1], " with ", contestants[0], " points!")
+        else:
+            print("and...")
+            print(print(i + 1, " ", contestants[1], " with ", contestants[0], " points! </3"))
+            print("*------------------------------------------------------*")
+
+if __name__ == "__main__":
     compute_losses()
     agent1 = compute_number_of_games(1)
     agent2 = compute_number_of_games(2)
@@ -132,6 +150,7 @@ if __name__ == "__main__":
     find_average_points(2)
     find_average_points(3)
     find_average_points(4)
-    print(number_of_games())
+    # print(number_of_games())
     pprint.pprint(hearts_agents)
     export()
+    get_winner()
